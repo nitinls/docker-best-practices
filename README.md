@@ -11,7 +11,7 @@ docker run -p 3306:3306 --name my-mariadb -e MYSQL_ROOT_PASSWORD=admin -v /home/
 docker run -p 3306:3306 --name my-mariadb -e MYSQL_ROOT_PASSWORD=admin -v /home/cloud-user/nitin/mysql/conf:/etc/mysql/conf.d -d mariadb:10.3 
 
 ##This create the user : working
-GRANT ALL PRIVILEGES ON *.* TO 'keyringapp'@'%' IDENTIFIED BY 'test'
+GRANT ALL PRIVILEGES ON *.* TO 'abc'@'%' IDENTIFIED BY 'test'
 
 ===================
 SHOW VARIABLES LIKE "max_connections"
@@ -47,11 +47,11 @@ sudo docker run --name my-redis-container-remote -p 80:6379 -d redis
 docker stop CONTAINER && docker rm $_
 
 ##Working
-docker exec -i my-mariadb mysql -uroot -padmin --database=keyring < abc.ddl
+docker exec -i my-mariadb mysql -uroot -padmin --database=abc < abc.ddl
 
 =================================
 ##This create the user : working
-GRANT ALL PRIVILEGES ON *.* TO 'keyringapp'@'%' IDENTIFIED BY 'test';
+GRANT ALL PRIVILEGES ON *.* TO 'abc'@'%' IDENTIFIED BY 'test';
 
 ## Ref
 https://severalnines.com/blog/mysql-docker-containers-understanding-basics
