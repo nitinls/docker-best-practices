@@ -53,5 +53,11 @@ docker exec -i my-mariadb mysql -uroot -padmin --database=abc < abc.ddl
 ##This create the user : working
 GRANT ALL PRIVILEGES ON *.* TO 'abc'@'%' IDENTIFIED BY 'test';
 
+# Backup
+docker exec CONTAINER /usr/bin/mysqldump -u root --password=root DATABASE > backup.sql
+
+# Restore
+cat backup.sql | docker exec -i CONTAINER /usr/bin/mysql -u root --password=root DATABASE
+
 ## Ref
 https://severalnines.com/blog/mysql-docker-containers-understanding-basics
