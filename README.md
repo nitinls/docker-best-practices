@@ -59,5 +59,31 @@ docker exec CONTAINER /usr/bin/mysqldump -u root --password=root DATABASE > back
 # Restore
 cat backup.sql | docker exec -i CONTAINER /usr/bin/mysql -u root --password=root DATABASE
 
+# Example :Dockerfile
+
+FROM tomcat8-image
+
+# Deploy app under the root context
+ADD target/xyz.war $CATALINA_HOME/webapps/ROOT.war
+
+# Add tools to create heap dump and thread dumps
+ADD tools/jmap /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/
+ADD tools/jstack /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/
+ADD tools/libjli.so /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/
+ADD tools/jcmd /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/
+ADD tools/tools.jar /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/
+RUN ln -s /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/jmap /usr/bin/jmap && \
+    ln -s /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/jcmd /usr/bin/jcmd && \
+    ln -s /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/jstack /usr/bin/jstack
+
+CMD cd /scripts && ./appd-config.sh && ./run.sh
+
+# Script run.sh
+#!/bin/bash
+echo "starting catalina ..."
+cd "$(dirname $0)"
+$CATALINA_HOME/bin/catalina.sh run
+
+
 ## Ref
 https://severalnines.com/blog/mysql-docker-containers-understanding-basics
