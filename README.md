@@ -35,6 +35,9 @@ sudo docker run --name my-redis-container -p 443:6379 -d redis
 
 sudo docker run --name my-redis-container -p 8083:6379 -d redis
 
+Consul
+https://medium.com/velotio-perspectives/a-practical-guide-to-hashicorp-consul-part-1-5ee778a7fcf4
+
 
 ## Connecting to Redis Running in a Docker Container
 sudo docker run --name my-redis-application --link my-redis-container:redis -d centos
